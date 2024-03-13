@@ -10,29 +10,31 @@
      *  2. INTEGER k
      */
 
+
+    // OPTION 1 (low level approach and complicated)
     public static int superDigit(string n, int k)
     {
         string p = string.Empty;
+        int pVal = 0;
         int sum = 0;
-        int firstOperationCount = 0;
+       
 
-        if (firstOperationCount < 1)
+        for (int i = 1; i <= k; i++)
         {
-            for (int i = 1; i <= k; i++)
-            {
-                p += n;
-                firstOperationCount++;
-            }
+            p += n;
         }
-        int parsedValue = int.Parse(p);
-
-        for (int i = parsedValue; i > 0; i--)
+        for (int i = 0; i < p.Length; i++)
         {
-            if (parsedValue < 10)
+            pVal += int.Parse(p[i].ToString());
+        }
+
+        for (int i = pVal; i > 0; i--)
+        {
+            if (pVal < 10)
             {
                 sum = i;
-                Console.WriteLine($"Super Digit is {parsedValue}");
-                return parsedValue;
+                Console.WriteLine($"Super Digit is {pVal}");
+                return pVal;
             }
             else
             {
@@ -40,14 +42,42 @@
                 {
                     sum += int.Parse(charItem.ToString());
                 }
-                parsedValue = sum;
-                p = parsedValue.ToString();
+                pVal = sum;
+                p = pVal.ToString();
                 sum = 0;
             }
         }
-        Console.ReadKey();
-        return parsedValue;
+        return pVal;
     }
+
+    // OPTION 2 (Simple and Better)
+    public static int SuperDigit(string baseNumber, int repetitions)
+    {
+        if (string.IsNullOrEmpty(baseNumber) || repetitions <= 0)
+        {
+            throw new ArgumentException("Invalid input");
+        }
+        // Concatenate the base number 'repetitions' times
+        string concatenatedNumber = string.Concat(Enumerable.Repeat(baseNumber, repetitions));
+
+        // Calculate the sum of digits more efficiently
+        int sumDigits = 0;
+        foreach (char digitChar in concatenatedNumber)
+        {
+            sumDigits += digitChar;
+        }
+
+        // Calculate super digit directly
+        int superDigitValue = sumDigits % 9;
+        if (superDigitValue == 0)
+        {
+            superDigitValue = 9;
+        }
+
+        Console.WriteLine($"Super Digit is {superDigitValue}");
+        return superDigitValue;
+    }
+
 }
 
 class Solution

@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/RecursiveDigitSum/obj
+/.vs/CodingPracticeChallenges
+/.vs/ProjectEvaluation
+/RecursiveDigitSum/bin/Debug/net8.0
